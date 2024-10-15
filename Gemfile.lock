@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     buildkite-test_collector (2.7.0)
+      drb (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -13,6 +14,7 @@ GEM
       tzinfo (~> 2.0)
     concurrent-ruby (1.2.2)
     diff-lcs (1.4.4)
+    drb (2.2.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     minitest (5.19.0)
