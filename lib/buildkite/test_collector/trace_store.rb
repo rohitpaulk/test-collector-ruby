@@ -5,6 +5,7 @@ module Buildkite::TestCollector
     end
 
     def add(id, trace)
+      puts "[BUILDKITE] Adding trace #{id}"
       @traces[id] = trace
     end
 

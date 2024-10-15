@@ -12,6 +12,7 @@ module Buildkite::TestCollector
     end
 
     def add_example_to_send_queue(id)
+      puts "[BUILDKITE] Sending trace #{id}"
       @send_queue_ids << id
 
       if @send_queue_ids.size >= Buildkite::TestCollector.batch_size
