@@ -43,7 +43,7 @@ module Buildkite::TestCollector
     private
 
     def upload_data(ids)
-      data = Buildkite::TestCollector.uploader.traces.values_at(*ids).compact
+      data = Buildkite::TestCollector.trace_store.values_at(*ids).compact
 
       # we do this in batches of UPLOAD_API_MAX_RESULTS in case the number of
       # results exceeds this due to a bug, or user error in configuring the

@@ -12,7 +12,7 @@ module Buildkite::TestCollector::MinitestPlugin
       super
 
       if Buildkite::TestCollector.uploader
-        if trace = Buildkite::TestCollector.uploader.traces[result.source_location]
+        if Buildkite::TestCollector.trace_store.has_key?(result.source_location)
           Buildkite::TestCollector.session.add_example_to_send_queue(result.source_location)
         end
       end

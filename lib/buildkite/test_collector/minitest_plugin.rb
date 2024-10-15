@@ -26,7 +26,7 @@ module Buildkite::TestCollector::MinitestPlugin
       tracer.finalize
 
       trace = Buildkite::TestCollector::MinitestPlugin::Trace.new(self, history: tracer.history)
-      Buildkite::TestCollector.uploader.traces[trace.source_location] = trace
+      Buildkite::TestCollector.trace_store.add(trace.source_location, trace)
     end
 
     super

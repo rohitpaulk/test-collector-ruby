@@ -20,8 +20,9 @@ require_relative "test_collector/http_client"
 require_relative "test_collector/uploader"
 require_relative "test_collector/network"
 require_relative "test_collector/object"
-require_relative "test_collector/tracer"
 require_relative "test_collector/session"
+require_relative "test_collector/trace_store"
+require_relative "test_collector/tracer"
 require_relative "test_collector/uuid"
 
 module Buildkite
@@ -33,6 +34,7 @@ module Buildkite
       attr_accessor :url
       attr_accessor :uploader
       attr_accessor :session
+      attr_accessor :trace_store
       attr_accessor :tracing_enabled
       attr_accessor :artifact_path
       attr_accessor :env

@@ -4,10 +4,6 @@ module Buildkite::TestCollector
   class Uploader
     MAX_UPLOAD_ATTEMPTS = 3
 
-    def self.traces
-      @traces ||= {}
-    end
-
     REQUEST_EXCEPTIONS = [
       URI::InvalidURIError,
       Net::HTTPBadResponse,

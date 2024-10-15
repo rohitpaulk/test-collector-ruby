@@ -7,6 +7,7 @@ require_relative "../rspec_plugin/reporter"
 require_relative "../rspec_plugin/trace"
 require_relative "../test_links_plugin/formatter"
 
+Buildkite::TestCollector.trace_store = Buildkite::TestCollector::TraceStore.new
 Buildkite::TestCollector.uploader = Buildkite::TestCollector::Uploader
 
 RSpec.configure do |config|
@@ -35,14 +36,14 @@ RSpec.configure do |config|
       tracer.finalize
 
       trace = Buildkite::TestCollector::RSpecPlugin::Trace.new(example, history: tracer.history)
-      Buildkite::TestCollector.uploader.traces[example.id] = trace
+      Buildkite::TestCollector.trace_store.add(example.id, trace)
     end
   end
 
   config.after(:suite) do
     if Buildkite::TestCollector.artifact_path
       filename = File.join(Buildkite::TestCollector.artifact_path, "buildkite-test-collector-rspec-#{Buildkite::TestCollector::UUID.call}.json.gz")
-      data_set = { results: Buildkite::TestCollector.uploader.traces.values.map(&:as_hash) }
+      data_set = { results: Buildkite::TestCollector.trace_store.values.map(&:as_hash) }
       File.open(filename, "wb") do |f|
         gz = Zlib::GzipWriter.new(f)
         gz.write(data_set.to_json)

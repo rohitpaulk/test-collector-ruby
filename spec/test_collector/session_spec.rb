@@ -14,7 +14,8 @@ RSpec.describe Buildkite::TestCollector::Session do
 
   before do
     Buildkite::TestCollector.uploader = Buildkite::TestCollector::Uploader
-    data.each { |k, v| Buildkite::TestCollector.uploader.traces[k] = v }
+    Buildkite::TestCollector.trace_store = Buildkite::TestCollector::TraceStore.new
+    data.each { |k, v| Buildkite::TestCollector.trace_store.add(k, v) }
     Buildkite::TestCollector.batch_size = 5
   end
 

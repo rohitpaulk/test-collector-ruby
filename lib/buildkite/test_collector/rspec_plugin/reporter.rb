@@ -13,7 +13,7 @@ module Buildkite::TestCollector::RSpecPlugin
 
     def handle_example(notification)
       example = notification.example
-      trace = Buildkite::TestCollector.uploader.traces[example.id]
+      trace = Buildkite::TestCollector.trace_store.get(example.id)
 
       if trace
         trace.example = example
